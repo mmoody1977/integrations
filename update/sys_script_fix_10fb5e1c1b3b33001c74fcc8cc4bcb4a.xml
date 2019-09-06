@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <before>false</before>
+        <description>Second Test with slow endpoint - Run in background script</description>
+        <flush_cache>false</flush_cache>
+        <name>Test Send &amp; SendAsync - 02</name>
+        <record_for_rollback>false</record_for_rollback>
+        <run_once>true</run_once>
+        <script><![CDATA[var intUtil = new x_integrations.IntegrationHandler("personal_dev_mid01");
+intUtil.basicCreds.user_name = "rapic01";
+intUtil.basicCreds.password = "rapic01";
+intUtil.Send("https://dev93135.service-now.com/api/x_integrations/emulator/slow_endpoint");
+//intUtil.SendAsync();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-09-06 06:42:33</sys_created_on>
+        <sys_id>10fb5e1c1b3b33001c74fcc8cc4bcb4a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Test Send &amp; SendAsync - 02</sys_name>
+        <sys_package display_value="Integrations" source="x_integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_scope>
+        <sys_update_name>sys_script_fix_10fb5e1c1b3b33001c74fcc8cc4bcb4a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-06 06:42:33</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>

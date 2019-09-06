@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <before>false</before>
+        <description>Create API Consumer test User Account &amp; roles</description>
+        <flush_cache>false</flush_cache>
+        <name>Create API Consumer User Account</name>
+        <record_for_rollback>false</record_for_rollback>
+        <run_once>true</run_once>
+        <script><![CDATA[CreateUser();
+function CreateUser() {
+    var gr = new GlideRecord("sys_user");
+    gr.addQuery("user_name", "rapic01");
+    gr.query();
+    var userSid = "";
+    if (gr.next()) {
+        userSid = String(gr.sys_id);
+        // Update fields if necessary    
+        gr.user_password.setDisplayValue("rapic01");
+        gr.first_name = "REST API";
+        gr.last_name = "Consumer 01";
+        gr.active = true;
+        gr.web_service_access_only = true;
+        gr.update();
+    }
+    else {
+        gr.initialize();
+        gr.user_name = "rapic01";
+        gr.user_password.setDisplayValue("rapic01");
+        gr.active = true;
+        gr.web_service_access_only = true;
+        userSid = gr.insert();
+    }
+    if (!gs.nil(userSid)) {
+        // Create role memberships
+        var rest_message = "3dfd67229f22110041a496fcc67fcf6c";
+        var itil = "282bf1fac6112285017366cb5f867469";
+        GrantRole(userSid, rest_message);
+        GrantRole(userSid, itil);
+    }
+}
+
+function GrantRole(userSid, roleSid) {
+    var query = "user=" + userSid + "^inherited!=true^role=" + roleSid;
+    var gr = new GlideRecord("sys_user_has_role");
+    gr.addEncodedQuery(query);
+    gr.query();
+    if (gr.next()) {
+        // do nothing
+    }
+    else {
+        gr.initialize();
+        gr.user = userSid;
+        gr.role = roleSid;
+        gr.insert();
+    }
+}]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-09-06 06:15:47</sys_created_on>
+        <sys_id>e623de541b3b33001c74fcc8cc4bcb1d</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Create API Consumer User Account</sys_name>
+        <sys_package display_value="Integrations" source="x_integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_scope>
+        <sys_update_name>sys_script_fix_e623de541b3b33001c74fcc8cc4bcb1d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-06 06:33:09</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>

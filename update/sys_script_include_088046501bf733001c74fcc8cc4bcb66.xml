@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_integrations.IntegrationHandler</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Primary API for handling Async RESTful Integration calls with external systems.</description>
+        <name>IntegrationHandler</name>
+        <script><![CDATA[var IntegrationHandler = Class.create();
+IntegrationHandler.prototype = {
+    initialize: function(midServer) {
+        this.message = new sn_ws.RESTMessageV2();
+        this.httpMethod = "get";
+        this.httpTimeout = 30000; // 30 secs
+        this.midServer = midServer;
+        this.basicCreds = { user_name: "", password: ""};
+    },
+
+    Send: function (url) {
+        // Setup the variables
+        if (gs.nil(url)) {
+            url = "https://dev93135.service-now.com/api/now/table/incident?sysparm_limit=1";
+        }
+        this.endPoint = url;
+
+        // Setup the message
+        this.message.setRequestHeader("Accept", "application/json");
+        this.message.setRequestHeader("Content-Type", "application/json");
+        this.message.setHttpMethod(String(this.httpMethod));
+        this.message.setMIDServer(String(this.midServer));
+        this.message.setHttpTimeout(this.httpTimeout);
+        if (!gs.nil(this.basicCreds.user_name) && !gs.nil(this.basicCreds.password)) {
+            this.message.setBasicAuth(String(this.basicCreds.user_name), String(this.basicCreds.password));
+        }
+        
+        this.message.setEndpoint(String(this.endPoint));
+        this.message.execute();
+    },
+
+    SendAsync: function (url) {
+        // Setup the variables
+       if (gs.nil(url)) {
+            url = "https://dev93135.service-now.com/api/now/table/incident?sysparm_limit=1";
+        }
+        this.endPoint = url;
+
+        // Setup the message
+        this.message.setRequestHeader("Accept", "application/json");
+        this.message.setRequestHeader("Content-Type", "application/json");
+        this.message.setEccParameter('skip_sensor', 'true');
+        this.message.setHttpMethod(String(this.httpMethod));
+        this.message.setMIDServer(String(this.midServer));
+        this.message.setHttpTimeout(this.httpTimeout);
+        if (!gs.nil(this.basicCreds.user_name) && !gs.nil(this.basicCreds.password)) {
+            this.message.setBasicAuth(String(this.basicCreds.user_name), String(this.basicCreds.password));
+        }
+        
+        this.message.setEndpoint(String(this.endPoint));
+        this.message.executeAsync();
+    },
+
+    type: 'IntegrationHandler'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-09-06 04:45:21</sys_created_on>
+        <sys_id>088046501bf733001c74fcc8cc4bcb66</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>IntegrationHandler</sys_name>
+        <sys_package display_value="Integrations" source="x_integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_scope>
+        <sys_update_name>sys_script_include_088046501bf733001c74fcc8cc4bcb66</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-06 05:57:54</sys_updated_on>
+    </sys_script_include>
+</record_update>
