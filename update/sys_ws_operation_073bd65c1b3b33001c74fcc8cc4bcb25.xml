@@ -10,7 +10,8 @@
         <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
 
     (new global.x_integrations_CrossScopeUtil()).sleep(15000); // Wait 15 secs
-
+	var answer = { result: "Success" };
+	response.setBody(answer);
 })(request, response);]]></operation_script>
         <operation_uri>/api/x_integrations/emulator/slow_endpoint</operation_uri>
         <produces>application/json,application/xml,text/xml</produces>
@@ -25,14 +26,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-09-06 06:41:10</sys_created_on>
         <sys_id>073bd65c1b3b33001c74fcc8cc4bcb25</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Slow Endpoint</sys_name>
         <sys_package display_value="Integrations" source="x_integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_package>
         <sys_policy/>
         <sys_scope display_value="Integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_scope>
         <sys_update_name>sys_ws_operation_073bd65c1b3b33001c74fcc8cc4bcb25</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-09-06 07:09:47</sys_updated_on>
+        <sys_updated_on>2019-09-14 00:38:23</sys_updated_on>
         <web_service_definition display_value="Integration Emulator">adaade1c1b3b33001c74fcc8cc4bcbb6</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>
