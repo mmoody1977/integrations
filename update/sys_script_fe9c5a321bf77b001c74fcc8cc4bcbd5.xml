@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>ecc_queue</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="ecc_queue">topic=RESTProbe^queue=input^EQ<item endquery="false" field="topic" goto="false" newquery="false" operator="=" or="false" value="RESTProbe"/>
+            <item display_value="input" endquery="false" field="queue" goto="false" newquery="false" operator="=" or="false" value="input"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Integration Async Sensor/Processor</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+    var Util = new global.x_integrations_CrossScopeUtil();
+    var output = Util.getXMLParameter(current.payload, 'output', true);
+    gs.info("ECC Input RESTProbe response: " + JSON.stringify(output));
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-09-14 01:20:05</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>fe9c5a321bf77b001c74fcc8cc4bcbd5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Integration Async Sensor/Processor</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrations" source="x_integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrations">f23eb1dc1bb733001c74fcc8cc4bcbc3</sys_scope>
+        <sys_update_name>sys_script_fe9c5a321bf77b001c74fcc8cc4bcbd5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-14 01:20:05</sys_updated_on>
+        <template/>
+        <when>async</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=fe9c5a321bf77b001c74fcc8cc4bcbd5"/>
+</record_update>
